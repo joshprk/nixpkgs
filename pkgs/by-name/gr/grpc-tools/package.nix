@@ -22,6 +22,13 @@ stdenv.mkDerivation rec {
 
   nativeBuildInputs = [ cmake ];
 
+  # Fix the build with CMake 4.
+  postPatch = ''
+    substituteInPlace deps/protobuf/cmake/CMakeLists.txt --replace-fail \
+      "cmake_minimum_required(VERSION 3.1.3)"\
+      "cmake_minimum_required(VERSION 3.10)"
+  '';
+
   installPhase = ''
     install -Dm755 -t $out/bin grpc_node_plugin
     install -Dm755 -t $out/bin deps/protobuf/protoc

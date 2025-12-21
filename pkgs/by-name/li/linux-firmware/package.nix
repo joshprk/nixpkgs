@@ -20,7 +20,7 @@ let
     fi
   '';
 in
-stdenvNoCC.mkDerivation {
+stdenvNoCC.mkDerivation rec {
   pname = "linux-firmware";
   version = "20251125";
 
